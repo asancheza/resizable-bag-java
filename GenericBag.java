@@ -20,10 +20,10 @@
 /* 
  * Bag Interface
  */
-public interface StringBag {
-	void add(String value);
-	void remove(String value);
+public interface GenericBag <T> {
+	void add(T value);
+	void remove(T value);
 
-	boolean contains(String value);
-	int count(String value);
+	boolean contains(T value);
+	int count(T value);
 }

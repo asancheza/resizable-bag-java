@@ -17,8 +17,11 @@
  *     Alejandro Sanchez Acosta <asanchez@neurowork.net>
  */
 
-public class ArrayStringBag implements StringBag {
-	public String[] data;
+/* 
+ * Bag definition
+ */
+public class Bag<T> implements GenericBag<T> {
+	public T[] data;
 	private int count;
 	public static final int CAPACITY = 4;
 
@@ -27,8 +30,11 @@ public class ArrayStringBag implements StringBag {
    * Create Bag instance
    *
    */
-	public ArrayStringBag() {
-		this.data = new String[CAPACITY];
+	public Bag() {
+		@SuppressWarnings("unchecked")
+		T[] temp = (T[]) new Object[CAPACITY];
+		this.data = temp;
+
 		this.count = 0;
 	}
 
@@ -37,10 +43,9 @@ public class ArrayStringBag implements StringBag {
    * Add element to the bag
    *
    */
-	public void add(String value) {
-		if (count == data.length) {
+	public void add(T value) {
+		if (this.count == this.data.length)
 			this.doubleArrayCapacity();
-		}
 
 		this.data[count] = value;
 		this.count++;
@@ -51,11 +56,13 @@ public class ArrayStringBag implements StringBag {
    * Remove element from bag
    *
    */
-	public void remove(String value) {
+	public void remove(T value) {
 		for (int i=0; i<count; i++) {
-			if (data[i].equals(value)) {
-				data[i] = data[count - 1];
+			if (this.data[i].equals(value)) {
+				this.data[i] = this.data[count - 1];
 				count--;
+				if (this.isTooBig()) 
+					this.reduceArray();
 				return;
 			}
 		}
@@ -67,7 +74,7 @@ public class ArrayStringBag implements StringBag {
    *
    * @return true or false if the element is in the bag
    */
-	public boolean contains(String value) {
+	public boolean contains(T value) {
 		for (int i = 0; i < count; i++) {
 			if (this.data[i].equals(value)) {
 				return true;
@@ -83,7 +90,7 @@ public class ArrayStringBag implements StringBag {
    *
    * @return the number of elements in the bag
    */
-	public int count(String value) {
+	public int count(T value) {
 		int counter = 0;
 
 		for (int i = 0; i < count; i++) {
@@ -101,7 +108,8 @@ public class ArrayStringBag implements StringBag {
    *
    */
 	private void doubleArrayCapacity() {
-		String[] copy = new String[data.length * 2];
+		@SuppressWarnings("unchecked")
+		T[] copy = (T[]) new Object[this.data.length * 2];
 
 		for (int i = 0; i < count; i++) {
 			copy[i] = this.data[i];
@@ -110,5 +118,41 @@ public class ArrayStringBag implements StringBag {
 		this.data = copy;
 
 		System.out.println("Doubled capacity: "+ data.length * 2);
+	}
+
+	/*
+	 * This method returns true if the number 
+	 * of entries in the bag is less than half 
+	 * the size of the array and the size of the 
+	 * array is greater than 20.
+	 *
+	 * return @boolean 
+	 */
+	private boolean isTooBig() {
+		if (this.count < this.data.length / 2 && this.data.length > 20) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/* 
+	* This method creates a new array that 
+	* is three quarters the size of the current 
+	* array and then copies the objects in the 
+	* bag into the new array.
+	*/
+	private void reduceArray() { 
+		int capacity = this.data.length * 3 / 4;
+		System.out.println(capacity);
+		T[] copy = (T[]) new Object[capacity];
+
+		for (int i = 0; i < this.count; i++) {
+			copy[i] = this.data[i];
+		}
+
+		this.data = copy;
+
+		System.out.println("Reduced capacity: "+ data.length);
 	}
 }

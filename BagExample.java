@@ -22,7 +22,7 @@
  */
 public class BagExample {
 	public static void main(String[] args) {
-		StringBag b = new ArrayStringBag();
+		GenericBag<String> b = new Bag<String>();
 
 		b.add("Hello");
 
@@ -32,6 +32,30 @@ public class BagExample {
 
     for (int i = 0; i < 1000; i++) {
       b.add("hello");
+    }
+
+    for (int i = 0; i < 1000; i++) {
+      b.remove("hello");
+    }
+
+    System.out.println("Counts: "+b.count("hello"));
+
+    GenericBag<Integer> b1 = new Bag<Integer>();
+
+		b1.add(1);
+
+		if (!b1.contains(1)) {
+			System.out.println("Contains is broken");
+		}
+
+    for (int i = 0; i < 1000; i++) {
+      b1.add(i);
+    }
+
+    System.out.println("Counts: "+b1.count(1));
+
+    for (int i = 0; i < 1000; i++) {
+      b1.remove(i);
     }
 	}
 }
