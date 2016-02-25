@@ -26,10 +26,10 @@ public class Bag<T> implements GenericBag<T> {
 	public static final int CAPACITY = 4;
 
 	/**
-   *
-   * Create Bag instance
-   *
-   */
+   	 *
+   	 * Create Bag instance
+   	 *
+   	 */
 	public Bag() {
 		@SuppressWarnings("unchecked")
 		T[] temp = (T[]) new Object[CAPACITY];
@@ -39,10 +39,10 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/**
-   *
-   * Add element to the bag
-   *
-   */
+   	 *
+   	 * Add element to the bag
+   	 *
+   	 */
 	public void add(T value) {
 		if (this.count == this.data.length)
 			this.doubleArrayCapacity();
@@ -52,10 +52,10 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/**
-   *
-   * Remove element from bag
-   *
-   */
+   	 *
+   	 * Remove element from bag
+   	 *
+   	 */
 	public void remove(T value) {
 		for (int i=0; i<count; i++) {
 			if (this.data[i].equals(value)) {
@@ -69,11 +69,11 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/**
-   *
-   * Contains element in the Bag
-   *
-   * @return true or false if the element is in the bag
-   */
+   	 *
+   	 * Contains element in the Bag
+   	 *
+   	 * @return true or false if the element is in the bag
+   	 */
 	public boolean contains(T value) {
 		for (int i = 0; i < count; i++) {
 			if (this.data[i].equals(value)) {
@@ -85,11 +85,11 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/**
-   *
-   * Count elements in the Bag
-   *
-   * @return the number of elements in the bag
-   */
+   	 *
+   	 * Count elements in the Bag
+   	 *
+   	 * @return the number of elements in the bag
+   	 */
 	public int count(T value) {
 		int counter = 0;
 
@@ -103,10 +103,10 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/**
-   *
-   * Double bag capacity
-   *
-   */
+   	 *
+   	 * Double bag capacity
+   	 *
+   	 */
 	private void doubleArrayCapacity() {
 		@SuppressWarnings("unchecked")
 		T[] copy = (T[]) new Object[this.data.length * 2];
@@ -137,11 +137,11 @@ public class Bag<T> implements GenericBag<T> {
 	}
 
 	/* 
-	* This method creates a new array that 
-	* is three quarters the size of the current 
-	* array and then copies the objects in the 
-	* bag into the new array.
-	*/
+	 * This method creates a new array that 
+	 * is three quarters the size of the current 
+	 * array and then copies the objects in the 
+	 * bag into the new array.
+	 */
 	private void reduceArray() { 
 		int capacity = this.data.length * 3 / 4;
 		System.out.println(capacity);
